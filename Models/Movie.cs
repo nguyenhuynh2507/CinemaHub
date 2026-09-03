@@ -1,0 +1,62 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DoAnDatVeXemPhim.Models
+{
+    public class Movie
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Tiêu đề không được để trống")]
+        [StringLength(250)]
+        [Display(Name = "Tên phim")]
+        public string Title { get; set; }
+
+        [Display(Name = "Mô tả")]
+        public string? Description { get; set; }
+
+        [Display(Name = "Link Poster")]
+        public string? PosterUrl { get; set; }
+
+        [Display(Name = "Thời lượng (phút)")]
+        public int Duration { get; set; }
+
+        // THÊM DẤU ? ĐỂ CHỐNG LỖI KHI DỮ LIỆU TRỐNG
+        [Display(Name = "Ngày khởi chiếu")]
+        [DataType(DataType.Date)]
+        public DateTime? ReleaseDate { get; set; }
+
+        [Display(Name = "Link Trailer (Youtube)")]
+        public string? TrailerUrl { get; set; }
+
+        // Thêm trường Genre (chuỗi) nếu muốn hiện tên thể loại nhanh ở View
+        [Display(Name = "Thể loại")]
+        public string? GenreName { get; set; }
+
+        // Nhiều Thể loại (M-N Relationship)
+        [Display(Name = "Danh sách Thể loại")]
+        public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();
+
+        [Display(Name = "Đạo diễn")]
+        public virtual ICollection<Director> Directors { get; set; } = new List<Director>();
+
+        [Display(Name = "Diễn viên")]
+        public virtual ICollection<Actor> Actors { get; set; } = new List<Actor>();
+
+        //thêm trường AgeRestriction để lưu trữ độ tuổi giới hạn của phim
+        [Required(ErrorMessage = "Vui lòng chọn giới hạn độ tuổi cho phim!")]
+        [Display(Name = "Giới hạn độ tuổi")]
+        public string AgeRestriction { get; set; }
+
+        // Quan hệ 1-N: Một bộ phim sẽ có danh sách nhiều suất chiếu (Showtimes)
+        public virtual ICollection<Showtime>? Showtimes { get; set; }
+
+        public virtual ICollection<MovieReview>? MovieReviews { get; set; }
+
+        // --- ĐÃ THÊM: Tính năng Behavior Tracking ---
+        [Display(Name = "Lượt xem")]
+        public int ViewCount { get; set; } = 0;
+    }
+}

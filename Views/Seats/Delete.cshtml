@@ -1,0 +1,39 @@
+@model DoAnDatVeXemPhim.Models.Seat
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header border-bottom border-danger p-4" style="border-color: rgba(220,53,69,0.3) !important;">
+    <h5 class="modal-title fw-bold text-uppercase text-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i>Xác nhận xóa ghế</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body p-4 text-center text-light">
+    <div class="text-danger mb-4">
+        <i class="bi bi-trash-fill" style="font-size: 4rem; text-shadow: 0 0 20px rgba(220,53,69,0.5);"></i>
+    </div>
+    
+    <h4 class="fw-bold mb-3">Xóa ghế <span class="text-warning">@Model.SeatNumber</span>?</h4>
+    <p class="text-muted small mb-4">Hành động này không thể hoàn tác. Ghế này sẽ bị xóa khỏi hệ thống.</p>
+    
+    <div class="p-3 rounded-3 text-start mb-4" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);">
+        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;">
+            <span class="text-muted small">Phòng chiếu:</span>
+            <span class="fw-bold text-light">@Model.CinemaHall?.Name</span>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span class="text-muted small">Loại ghế:</span>
+            <span class="fw-bold @(Model.SeatType == "VIP" ? "text-warning" : (Model.SeatType == "Sweetbox" ? "text-danger" : "text-info"))">@Model.SeatType</span>
+        </div>
+    </div>
+
+    <form asp-action="Delete" id="actionForm">
+        <input type="hidden" asp-for="Id" />
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-danger fw-bold py-2 rounded-pill shadow-sm" style="box-shadow: 0 0 15px rgba(220,53,69,0.3) !important;">
+                XÁC NHẬN XÓA
+            </button>
+            <button type="button" class="btn btn-link text-muted small text-decoration-none mt-1" data-bs-dismiss="modal">Hủy bỏ</button>
+        </div>
+    </form>
+</div>

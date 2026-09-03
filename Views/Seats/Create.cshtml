@@ -1,0 +1,41 @@
+@model DoAnDatVeXemPhim.Models.Seat
+
+@{
+    Layout = null; 
+}
+
+<div class="modal-header border-bottom border-secondary p-4" style="border-color: rgba(255,255,255,0.05) !important;">
+    <h5 class="modal-title fw-bold text-uppercase" style="color: #fbbf24;"><i class="bi bi-plus-circle-fill me-2"></i>Thêm ghế mới</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body p-4 text-light">
+    <form asp-action="Create" id="actionForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-4">
+            <label asp-for="CinemaHallId" class="form-label fw-bold small text-muted">PHÒNG CHIẾU</label>
+            <select asp-for="CinemaHallId" class="form-select form-control-neon" asp-items="ViewBag.CinemaHallId"></select>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="SeatNumber" class="form-label fw-bold small text-muted">SỐ GHẾ (VÍ DỤ: A10)</label>
+            <input asp-for="SeatNumber" class="form-control form-control-neon" />
+            <span asp-validation-for="SeatNumber" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="SeatType" class="form-label fw-bold small text-muted">LOẠI GHẾ</label>
+            <select asp-for="SeatType" class="form-select form-control-neon">
+                <option value="Normal">Ghế Thường</option>
+                <option value="VIP">Ghế VIP</option>
+                <option value="Sweetbox">Ghế Đôi (Sweetbox)</option>
+            </select>
+            <span asp-validation-for="SeatType" class="text-danger small"></span>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+            <button type="submit" class="btn btn-cyber-warning fw-bold py-2 shadow-sm text-dark rounded-pill">TẠO GHẾ</button>
+            <button type="button" class="btn btn-link text-muted small text-decoration-none" data-bs-dismiss="modal">Hủy bỏ</button>
+        </div>
+    </form>
+</div>
